@@ -25,9 +25,10 @@ export default function NotePreview({ noteId }: Props) {
 
   const handleClose = () => router.back();
 
-  if (isLoading) return <Modal onClose={handleClose}>Loading...</Modal>;
+  if (isLoading)
+    return <Modal onClose={handleClose}>Loading, please wait...</Modal>;
   if (error || !note)
-    return <Modal onClose={handleClose}>Error loading note.</Modal>;
+    return <Modal onClose={handleClose}>Something went wrong.</Modal>;
 
   return (
     <Modal onClose={handleClose}>
@@ -36,9 +37,6 @@ export default function NotePreview({ noteId }: Props) {
         <h2 className={css.title}>{note.title}</h2>
         <p className={css.content}>{note.content}</p>
         <p className={css.date}>{new Date(note.createdAt).toLocaleString()}</p>
-        <button className={css.closeBtn} onClick={handleClose}>
-          ← Back
-        </button>
       </div>
     </Modal>
   );

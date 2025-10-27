@@ -15,8 +15,8 @@ const NoteDetailsClient = ({ id }: NoteDetailsClientProps) => {
     refetchOnMount: false,
   });
 
-  if (isLoading) return <p>Завантаження...</p>;
-  if (isError || !data) return <p>Помилка при завантаженні нотатки</p>;
+  if (isLoading) return <p>Loading, please wait...</p>;
+  if (isError || !data) return <p>Something went wrong.</p>;
 
   const { title, content, createdAt } = data;
   const date = new Date(createdAt).toLocaleString();

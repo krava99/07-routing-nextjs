@@ -6,12 +6,11 @@ import {
 } from "@tanstack/react-query";
 import NotePreview from "./NotePreview.client";
 
-type Props = {
-  params: { id: string };
-};
+type Params = Promise<{ id: string }>;
 
-export default async function NotePreviewPage({ params }: Props) {
-  const { id } = params;
+export default async function NotePreviewPage({ params }: { params: Params }) {
+  const { id } = await params;
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({

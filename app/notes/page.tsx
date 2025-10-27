@@ -5,7 +5,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import React from "react";
-import Notes from "./Notes.client";
+import Notes from "./filter/[...slug]/Notes.client";
 
 const NotesPage = async () => {
   const queryClient = new QueryClient();

@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { fetchNotes, type FetchNotesResponse } from "../../lib/api";
-import { NoteList } from "../../components/NoteList/NoteList";
-import { Pagination } from "../../components/Pagination/Pagination";
-import { Modal } from "../../components/Modal/Modal";
-import { NoteForm } from "../../components/NoteForm/NoteForm";
-import { SearchBox } from "../../components/SearchBox/SearchBox";
+import { fetchNotes, type FetchNotesResponse } from "../../../../lib/api";
+import { NoteList } from "../../../../components/NoteList/NoteList";
+import { Pagination } from "../../../../components/Pagination/Pagination";
+import { Modal } from "../../../../components/Modal/Modal";
+import { NoteForm } from "../../../../components/NoteForm/NoteForm";
+import { SearchBox } from "../../../../components/SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
-import css from "../../app/notes/Notes.page.module.css";
+import css from "./Notes.page.module.css";
 
 export const Notes = () => {
   const [search, setSearch] = useState("");

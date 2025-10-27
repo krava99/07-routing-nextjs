@@ -9,8 +9,13 @@ import { NoteForm } from "../../../../components/NoteForm/NoteForm";
 import { SearchBox } from "../../../../components/SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
 import css from "./Notes.page.module.css";
+import { NoteTag } from "@/types/note";
 
-export const Notes = () => {
+interface NotesProps {
+  tag?: NoteTag;
+}
+
+export const Notes = ({ tag }: NotesProps) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +32,8 @@ export const Notes = () => {
     FetchNotesResponse
   >({
     queryKey: ["notes", page, debouncedSearch],
-    queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch }),
+    queryFn: () =>
+      fetchNotes({ page, perPage: 12, search: debouncedSearch, tag }),
     placeholderData: keepPreviousData,
   });
 

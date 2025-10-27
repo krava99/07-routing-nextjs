@@ -1,36 +1,27 @@
+import { fetchNoteById } from "@/lib/api";
 import {
+  HydrationBoundary,
   dehydrate,
   QueryClient,
-  HydrationBoundary,
 } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api";
-import Notes from "./Notes.client";
-import type { NoteTag } from "@/types/note";
+import NotePreview from "../../../@modal/(.)notes/[id]/NotePreview.client";
 
-type Props = {
-  params: { tag?: string[] };
-};
+interface Props {
+  params: { id: string };
+}
 
-const FilteredNotesPage = async ({ params }: Props) => {
-  const searchTag = params.tag?.[0] ?? "all";
-
+export default async function NotePreviewPage({ params }: Props) {
+  const { id } = params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["notes", searchTag],
-    queryFn: () =>
-      fetchNotes({
-        page: 1,
-        perPage: 10,
-        tag: searchTag !== "all" ? (searchTag as NoteTag) : undefined,
-      }),
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Notes tag={searchTag !== "all" ? (searchTag as NoteTag) : undefined} />
+      <NotePreview noteId={id} />
     </HydrationBoundary>
   );
-};
-
-export default FilteredNotesPage;
+}

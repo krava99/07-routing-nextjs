@@ -1,9 +1,4 @@
 import css from "./page.module.css";
-import { redirect } from "next/navigation";
-
-export function InterceptedNotesRoot() {
-  redirect("/notes/filter/all");
-}
 
 const Home = () => {
   return (

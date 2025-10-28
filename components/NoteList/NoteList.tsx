@@ -26,8 +26,8 @@ export const NoteList = ({ notes }: NoteListProps) => {
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
-            <Link href={`/notes/${note.id}`} className={css.link}>
-              View details
+            <Link href="/notes/[id]" as={`/notes/${note.id}`} scroll={false}>
+              View Details
             </Link>
             <button
               className={css.button}

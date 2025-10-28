@@ -6,12 +6,15 @@ import {
 import { fetchNotes, FetchNotesParams } from "@/lib/api";
 import NotesClient from "./Notes.client";
 
-interface Props {
-  params: { slug: string[] };
-}
+type Params = Promise<{ slug: string[] }>;
 
-const FilteredNotesPage = async ({ params }: Props) => {
-  const filterSlug = params.slug?.[0] || "all";
+export default async function FilteredNotesPage({
+  params,
+}: {
+  params: Params;
+}) {
+  const { slug } = await params;
+  const filterSlug = slug?.[0] || "all";
   const tagToFetch = filterSlug === "all" ? undefined : filterSlug;
 
   const fetchParams: FetchNotesParams = {
@@ -33,6 +36,4 @@ const FilteredNotesPage = async ({ params }: Props) => {
       <NotesClient initialTag={filterSlug} initialParams={fetchParams} />
     </HydrationBoundary>
   );
-};
-
-export default FilteredNotesPage;
+}

@@ -30,22 +30,30 @@ export interface CreateNotePayload {
 }
 
 export const fetchNotes = async ({
-  page,
-  perPage,
-  search,
+  page = 1,
+  perPage = 12,
+  search = "",
   tag,
 }: FetchNotesParams): Promise<FetchNotesResponse> => {
-  const params: Record<string, string | number | undefined> = {
+  const params: {
+    page: number;
+    perPage: number;
+    search?: string;
+    tag?: string;
+  } = {
     page,
     perPage,
-    search,
   };
+
+  if (search) {
+    params.search = search;
+  }
+
   if (tag && tag !== "all") {
     params.tag = tag;
   }
-  const { data } = await instance.get<FetchNotesResponse>("/notes", {
-    params,
-  });
+
+  const { data } = await instance.get<FetchNotesResponse>("/notes", { params });
   return data;
 };
 
